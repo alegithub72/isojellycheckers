@@ -17,9 +17,9 @@ import javafx.scene.shape.StrokeLineCap;
 public class Cursor extends Polygon{
 
     public Cursor(Color c,boolean dash) {
-        super(0,0,ISOCoverter.covertToISOX(100, 0),+ISOCoverter.covertToISOY(100, 0),
-                ISOCoverter.covertToISOX(100, 100),ISOCoverter.covertToISOY(100, 100),
-                ISOCoverter.covertToISOX(0, 100), ISOCoverter.covertToISOY(0, 100)
+        super(0,0,ISOCoverter.covertPlaneXToScreenISOX(100, 0),+ISOCoverter.convertPlaneYToScreenISOY(100, 0),
+                ISOCoverter.covertPlaneXToScreenISOX(100, 100),ISOCoverter.convertPlaneYToScreenISOY(100, 100),
+                ISOCoverter.covertPlaneXToScreenISOX(0, 100), ISOCoverter.convertPlaneYToScreenISOY(0, 100)
         );
         this.setFill(c);
         this.setOpacity(0.5);

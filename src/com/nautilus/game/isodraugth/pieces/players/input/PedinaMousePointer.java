@@ -35,8 +35,8 @@ public class PedinaMousePointer implements EventHandler<MouseEvent> {
         double vy = pedina.getCasella().y * ISOCoverter.SQ_HG;
       //  System.out.println("xi=" + pedina.getCasella().x);
        /// System.out.println("yj=" + pedina.getCasella().y);
-        double xs = ISOCoverter.covertToISOX(vx, vy);
-        double ys = ISOCoverter.covertToISOY(vx, vy);
+        double xs = ISOCoverter.covertPlaneXToScreenISOX(vx, vy);
+        double ys = ISOCoverter.convertPlaneYToScreenISOY(vx, vy);
         app.cursor.setLayoutX(xs + app.center.getX());
         app.cursor.setLayoutY(ys + app.center.getY());
         app.cursor.setVisible(true);       

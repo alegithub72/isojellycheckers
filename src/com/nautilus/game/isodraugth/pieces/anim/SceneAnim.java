@@ -42,16 +42,16 @@ public abstract class SceneAnim  {
 
         double xstart = c.x * ISOCoverter.SQ_WD;
         double ystart = c.y * ISOCoverter.SQ_HG;
-        double isoXstart = ISOCoverter.covertToISOX(xstart, ystart) + app.center.getX();
-        double isoYstart = ISOCoverter.covertToISOY(xstart, ystart) + app.center.getY();
+        double isoXstart = ISOCoverter.covertPlaneXToScreenISOX(xstart, ystart) + app.center.getX();
+        double isoYstart = ISOCoverter.convertPlaneYToScreenISOY(xstart, ystart) + app.center.getY();
         return new Point2D(isoXstart, isoYstart);
     }
 
     public Point2D convertISOCoordinateEnd() {
         double xend = m.getMapx() * ISOCoverter.SQ_WD;
         double yend = m.getMapy() * ISOCoverter.SQ_HG;
-        double isoXend = ISOCoverter.covertToISOX(xend, yend) + app.center.getX();
-        double isoYend = ISOCoverter.covertToISOY(xend, yend) + app.center.getY();        
+        double isoXend = ISOCoverter.covertPlaneXToScreenISOX(xend, yend) + app.center.getX();
+        double isoYend = ISOCoverter.convertPlaneYToScreenISOY(xend, yend) + app.center.getY();        
         return new Point2D(isoXend, isoYend);
 
    }   

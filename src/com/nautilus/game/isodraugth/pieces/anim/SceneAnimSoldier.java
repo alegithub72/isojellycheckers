@@ -44,8 +44,8 @@ public class SceneAnimSoldier extends SceneAnim{
         Timeline anim = new Timeline();
 
   
-        anim.getKeyFrames().add(new KeyFrame(Duration.millis(600), new KeyValue(p, 9)));
-        anim.getKeyFrames().add(new KeyFrame(Duration.millis(1000),"fire", new KeyValue(p, 30)));              
+        anim.getKeyFrames().add(new KeyFrame(Duration.millis(1000), new KeyValue(p, 10)));
+        anim.getKeyFrames().add(new KeyFrame(Duration.millis(1000),"fire", new KeyValue(p, 29)));              
 
         //p.playSoundFire();
        // anim.play();
@@ -72,7 +72,7 @@ public class SceneAnimSoldier extends SceneAnim{
                 p.stopSound();
                     //todo to depth order ...... 
                 //app.board.getChildren().sort(null);
-                p.set(0);
+               
                 p.setCasella(new Casella(app.move.getMapx(),
                         app.move.getMapy(), Casella.EMPTY));
                 app.board.moveNodeDepth(p.getCasella().x + (p.getCasella().y * 8), p);
@@ -84,6 +84,12 @@ public class SceneAnimSoldier extends SceneAnim{
         parallel.getChildren().add(anim);
         parallel.getChildren().add(fireAction);
         parallel.play();
+        parallel.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+              p.loadCustomAnimation("walk_north_Ovest.png");
+            }
+        });
     }
     public void playSceneWalkNE(Pedina p, Point2D startXY, Point2D endXY) {
         p.walkNEplay();

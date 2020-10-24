@@ -46,19 +46,29 @@ public class ISODraugth extends Application {
     public static final int MAP_WIDTH = 8;
     public static final int MAP_HIGHT = 8;
     Casella map[][] = new Casella[MAP_HIGHT][MAP_WIDTH];
-    double perc=0.5264;
+    TerrainFree free = new TerrainFree();
+    TerrainOccupy occupy = new TerrainOccupy();
+   double percX=1;   
+   double percY=1;
+   
+  //  double perc=1;
     public PlayerSideA playerA;
     static  Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-    static  double screeenWidth = 215*8;
-    static double screenHight = (225*8)/2;
-    static  double sceneWidth = screeenWidth+225;
-    static double sceneHight = screenHight+112;
+    double screeenWidth ;
+    double screenHight;
+    double sceneWidth;
+    double sceneHight;
+    //static  double screeenWidth = 215*8;
+    //static double screenHight = (225*8)/2;
+    //static  double sceneWidth = screeenWidth+225;
+    //static double sceneHight = screenHight+112;
     public Point2DAndMap move;
     public Cursor cursor = new Cursor(Color.BLUEVIOLET,false);
-    Score scoreA;
+    //Score scoreA;
     Canvas mapScreen;
-    Score scoreB;
-    public static Point2D center = new Point2D((screeenWidth / 2), 100);
+    //Score scoreB;
+    //public static Point2D center = new Point2D((screeenWidth / 2), 100);
+    public static Point2D center;
     public BoardGroup board;
     Group root;
     
@@ -88,11 +98,21 @@ public class ISODraugth extends Application {
     ;
     @Override
     public void start(Stage primaryStage) {
+        //TODO rivedere il panello quando scala deve scalare anche la finestra principale
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getBounds();
         root=new Group();
-        scoreA = new Score();
-        scoreB = new Score();
-        pan=new BorderPane();
+        System.out.println("-----ScreenBounds--------->"+primaryScreenBounds.getWidth()+","+primaryScreenBounds.getHeight());
+        screeenWidth=primaryScreenBounds.getWidth();
+        screenHight=primaryScreenBounds.getHeight();
+        percX=((100*screeenWidth)/(free.ISO_W*MAP_WIDTH))/100;
+        percY=((100*screenHight)/((free.ISO_H*MAP_HIGHT)+free.ISO_SUB_H))/100;
+        sceneWidth=free.ISO_W*MAP_WIDTH;
+        sceneHight=(free.ISO_H*MAP_HIGHT)+free.ISO_SUB_H;
+        center=new Point2D((sceneWidth / 2), 0);
+        //scoreA = new Score();
+        //scoreB = new Score();
+        //pan=new BorderPane();
+        
         initMap();
         playerA = new PlayerSideA(this, "Alessio", PlayerSideA.WHITE, map);
         board = new BoardGroup(playerA);
@@ -101,12 +121,11 @@ public class ISODraugth extends Application {
         panel.setMinSize(800, 600);
         panel.setMaxSize(screeenWidth, screenHight);*/
 
+      //  mapScreen = new Canvas(sceneWidth,sceneHight );
         mapScreen = new Canvas(sceneWidth,sceneHight );
 
-        scene = new Scene(pan, 2560, 1600, Color.AQUAMARINE);
-        pan.setBackground(new Background(new BackgroundFill(Color.AQUA, CornerRadii.EMPTY, Insets.EMPTY)));
-        primaryStage.setMaximized(false);
-        primaryStage.setResizable(false);
+        //pan.setBackground(new Background(new BackgroundFill(Color.AQUA, CornerRadii.EMPTY, Insets.EMPTY)));
+
 
        
         // primaryStage.setFullScreen(true);
@@ -136,7 +155,7 @@ public class ISODraugth extends Application {
        // scoreA.setScaleY(0.3);
        // scoreA.setLayoutX(0);
        // scoreA.setLayoutY(0);
-          board.getChildren().add(scoreA);
+          //board.getChildren().add(scoreA);
       //  pan.setTop(scoreA);
       //  pan.getTop().setTranslateX(-100);
       //  pan.getTop().setTranslateY(-100); 
@@ -145,25 +164,37 @@ public class ISODraugth extends Application {
         //scoreB.setScaleX(perc);
         //scoreB.setScaleY(perc);
         //pan.setLeft(scoreB);
-        scoreA.setLayoutY(0);
-        scoreA.setLayoutX((screeenWidth/2)+300);
-        board.getChildren().add(scoreB);
-        scoreB.setLayoutY(0);
-        scoreB.setLayoutX((screeenWidth/2)-800);
+        //scoreA.setLayoutY(0);
+        //scoreA.setLayoutX((screeenWidth/2)+300);
+        //board.getChildren().add(scoreB);
+        //scoreB.setLayoutY(0);
+        //scoreB.setLayoutX((screeenWidth/2)-800);
         root.setOnMouseMoved(new MousePointer(this));
         root.setOnMouseClicked(new MouseSelection(this));
-        root.setScaleX(perc);
-        root.setScaleY(perc);
+        //pan.setCenter(root);
+        root.setScaleX(percX);
+        root.setScaleY(percY);
+        
        // root.setScaleZ(0.50);
-        System.out.println("---"+root.localToScene(0,0).toString());
+        System.out.println("-LocalTOScene-->>"+root.localToScene(0,0).toString());
     
-        //root.relocate(200, 0);
+        //root.relocate(0, 0);
         root.setTranslateX(-root.localToScene(0,0).getX());
         root.setTranslateY(-root.localToScene(0,0).getY());        
+        //root.setTranslateX(0);
+       // root.setTranslateY(0);
         //scene.setFill(Color.BLUEVIOLET);
         primaryStage.setTitle("ISO Draugth");
+        //primaryStage.setHeight(root.getBoundsInParent().getHeight());
+        //primaryStage.setHeight(root.getBoundsInParent().getWidth());
+        System.out.println("--Bound-"+root.getBoundsInParent().getWidth()+","+root.getBoundsInParent().getWidth());
+        //scene = new Scene(pan, pan.getBoundsInParent().getWidth(), pan.getBoundsInParent().getHeight(), Color.AQUAMARINE);
+        scene = new Scene(root, Color.AQUAMARINE);
+        //primaryStage.set
         primaryStage.setScene(scene);
-        pan.setCenter(root);
+            
+         primaryStage.setMaximized(false);
+        primaryStage.setResizable(false);
         primaryStage.show();
 
     }
@@ -180,18 +211,17 @@ public class ISODraugth extends Application {
     void buildISOMap(GraphicsContext gc, Group board) {
         ISOCoverter conv = new ISOCoverter();
         
-        TerrainFree free = new TerrainFree();
-        TerrainOccupy occupy = new TerrainOccupy();
+
         for (int y = 0; y < MAP_WIDTH; y++) {
 
             for (int x = 0; x < MAP_HIGHT; x++) {
 
                 double vx = (ISOCoverter.SQ_WD * x), vy = (ISOCoverter.SQ_HG * y);
-                double convX = conv.covertToISOX(vx, vy);
-                double convY = conv.covertToISOY(vx, vy);
+                double convX = conv.covertPlaneXToScreenISOX(vx, vy);
+                double convY = conv.convertPlaneYToScreenISOY(vx, vy);
 
-                double convXC = conv.covertToISOX(vx + ISOCoverter.SQ_WD / 2, vy + ISOCoverter.SQ_HG / 2);
-                double convYC = conv.covertToISOY(vx + ISOCoverter.SQ_WD / 2, vy + ISOCoverter.SQ_HG / 2);
+                double convXC = conv.covertPlaneXToScreenISOX(vx + ISOCoverter.SQ_WD / 2, vy + ISOCoverter.SQ_HG / 2);
+                double convYC = conv.convertPlaneYToScreenISOY(vx + ISOCoverter.SQ_WD / 2, vy + ISOCoverter.SQ_HG / 2);
 
                 double x1 = convX + center.getX();
                 double y1 = convY + center.getY();
@@ -242,10 +272,10 @@ public class ISODraugth extends Application {
             double yend = (move.getMapy() * ISOCoverter.SQ_HG) + ISOCoverter.SQ_HG / 2;
             double xstart = (c.x * ISOCoverter.SQ_WD) + ISOCoverter.SQ_WD / 2;
             double ystart = (c.y * ISOCoverter.SQ_HG) + ISOCoverter.SQ_HG / 2;
-            double isoXend = ISOCoverter.covertToISOX(xend, yend)+center.getX();
-            double isoYend = ISOCoverter.covertToISOY(xend, yend)+center.getY();
-            double isoXstart = ISOCoverter.covertToISOX(xstart, ystart)+center.getX();
-            double isoYstart = ISOCoverter.covertToISOY(xstart, ystart)+center.getY();
+            double isoXend = ISOCoverter.covertPlaneXToScreenISOX(xend, yend)+center.getX();
+            double isoYend = ISOCoverter.convertPlaneYToScreenISOY(xend, yend)+center.getY();
+            double isoXstart = ISOCoverter.covertPlaneXToScreenISOX(xstart, ystart)+center.getX();
+            double isoYstart = ISOCoverter.convertPlaneYToScreenISOY(xstart, ystart)+center.getY();
             Line line = new Line();
             line.setStrokeWidth(10);
           // Path path=new Path();

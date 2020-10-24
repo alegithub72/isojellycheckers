@@ -11,13 +11,16 @@ import javafx.scene.image.Image;
  *
  * @author AlessioADM
  */
-public class TerrainFree {
+public class TerrainFree extends Terrain {
     
-    Image img;
-    public int offsx=107;
-    public int offsy=50;
     public TerrainFree(){
     img=new Image("freecasella.png");
+    ISO_W=img.getWidth();
+    ISO_H=107;
+    ISO_SUB_H=img.getHeight()-ISO_H;
+    offsx = 107;
+    offsy = 50;
+    
     }
     
     public Image getImg(){

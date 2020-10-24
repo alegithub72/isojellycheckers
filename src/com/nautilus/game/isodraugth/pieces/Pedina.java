@@ -43,7 +43,7 @@ public abstract class Pedina extends Parent implements WritableIntegerValue {
         //TODO caricare pirma l'immagine e poi rimuovvere il child
         this.img_file = img_file;        
         Image img2 = new Image(img_file);
-        int n = (int) (img2.widthProperty().intValue() / SPRITE_W);
+        int n = (int) (img2.widthProperty().intValue() / SPRITE_W)+1;
         frames = new Rectangle2D[n];
         for (int i = 0; i < n; i++) {
             frames[i] = new Rectangle2D(i * SPRITE_W, 0, SPRITE_W, SPRITE_H);

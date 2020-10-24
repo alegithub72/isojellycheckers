@@ -47,7 +47,7 @@ public class ISOCoverterTest {
         double y =100;
         ISOCoverter instance = new ISOCoverter();
         double expResult = 0.0;
-        double result = instance.covertToISOX(x, y);
+        double result = instance.covertPlaneXToScreenISOX(x, y);
         System.out.println("covertToISOX "+
                  result);
         assertEquals(expResult, result, 0.0);
@@ -65,7 +65,7 @@ public class ISOCoverterTest {
         double y = 100;
         ISOCoverter instance = new ISOCoverter();
         double expResult = 100;
-        double result = instance.covertToISOY(x, y);
+        double result = instance.convertPlaneYToScreenISOY(x, y);
           System.out.println("covertToISOY "+result);
         assertEquals(expResult, result, 0.0);
         // TODO review the generated test code and remove the default call to fail.
@@ -82,7 +82,7 @@ public class ISOCoverterTest {
         double y = 100;
         ISOCoverter instance = new ISOCoverter();
         double expResult = 100;
-        double result = instance.isoConvertoScreenX(x, y);
+        double result = instance.isoXConvertoPlaneScreenX(x, y);
         assertEquals(expResult, result, 0.0);
         // TODO review the generated test code and remove the default call to fail.
  
@@ -98,7 +98,7 @@ public class ISOCoverterTest {
         double y = 100;
         ISOCoverter instance = new ISOCoverter();
         double expResult = 100;
-        double result = instance.isoConverterScreenY(x, y);
+        double result = instance.isoYConverterPlaneScreenY(x, y);
         assertEquals(expResult, result, 0.0);
         // TODO review the generated test code and remove the default call to fail.
         
