@@ -13,11 +13,18 @@ import javafx.scene.image.Image;
  */
 public abstract class Terrain {
     Image img;
-    public int offsx = 107;
-    public int offsy = 50;
+    public int offsx;
+    public int offsy;
     public double ISO_W;
     public double ISO_H;
     public double ISO_SUB_H;
+    public double ISO_H_UP;
+
+    public Terrain(String file_img) {
+    img=new Image(file_img);
+    ISO_W=img.getWidth();
+    ISO_H=img.getHeight();;
+    }
 
     
 }

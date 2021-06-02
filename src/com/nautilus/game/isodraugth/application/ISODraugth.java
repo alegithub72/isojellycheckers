@@ -30,6 +30,7 @@ import javafx.animation.PathTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -65,13 +66,13 @@ public class ISODraugth extends Application {
     public Point2DAndMap move;
     public Cursor cursor = new Cursor(Color.BLUEVIOLET,false);
     //Score scoreA;
-    Canvas mapScreen;
+    Canvas mapScreen,mapScreenIntro;
     //Score scoreB;
     //public static Point2D center = new Point2D((screeenWidth / 2), 100);
     public static Point2D center;
     public BoardGroup board;
     Group root;
-    
+    Score score;
     Scene scene;
     BorderPane pan;
     public Cursor aim = new Cursor(Color.RED,true);    
@@ -104,15 +105,15 @@ public class ISODraugth extends Application {
         System.out.println("-----ScreenBounds--------->"+primaryScreenBounds.getWidth()+","+primaryScreenBounds.getHeight());
         screeenWidth=primaryScreenBounds.getWidth();
         screenHight=primaryScreenBounds.getHeight();
-        percX=((100*screeenWidth)/(free.ISO_W*MAP_WIDTH))/100;
-        percY=((100*screenHight)/((free.ISO_H*MAP_HIGHT)+free.ISO_SUB_H))/100;
+        percX=((100*screeenWidth)/(free.ISO_W*(MAP_WIDTH)))/100;
+        percY=((100*screenHight)/((free.ISO_H_UP*MAP_HIGHT)+free.ISO_SUB_H))/100;
         sceneWidth=free.ISO_W*MAP_WIDTH;
-        sceneHight=(free.ISO_H*MAP_HIGHT)+free.ISO_SUB_H;
+        sceneHight=(free.ISO_H_UP*MAP_HIGHT)+free.ISO_SUB_H;
         center=new Point2D((sceneWidth / 2), 0);
         //scoreA = new Score();
         //scoreB = new Score();
         //pan=new BorderPane();
-        
+        System.out.println("-----SceneBounds--------->"+sceneWidth+","+sceneHight);
         initMap();
         playerA = new PlayerSideA(this, "Alessio", PlayerSideA.WHITE, map);
         board = new BoardGroup(playerA);
@@ -123,19 +124,30 @@ public class ISODraugth extends Application {
 
       //  mapScreen = new Canvas(sceneWidth,sceneHight );
         mapScreen = new Canvas(sceneWidth,sceneHight );
-
+        mapScreenIntro = new Canvas(sceneWidth,sceneHight ); 
         //pan.setBackground(new Background(new BackgroundFill(Color.AQUA, CornerRadii.EMPTY, Insets.EMPTY)));
 
 
        
         // primaryStage.setFullScreen(true);
         GraphicsContext gc = mapScreen.getGraphicsContext2D();
-        gc.setFill(Color.AQUA);
+         GraphicsContext gcIntro = mapScreenIntro.getGraphicsContext2D();
+         Image img=new Image("LocandinaGame.png");
+         gcIntro.drawImage(img,0,0,sceneWidth,sceneHight);
+       
+        gc.setFill(Color.GOLD);
+       //gc.set
         gc.fillRect(0, 0, sceneWidth, sceneHight);
+        //gc.setFill(Color.CHOCOLATE);
+        //gc.fillRect(0, sceneHight/2, sceneWidth, sceneHight/2);
+        
         root.getChildren().add(mapScreen);
+        //root.getChildren().add(mapScreenIntro);
         //gc.setFill(Color.BLACK);
         board.getChildren().add(cursor);
+        
         cursor.setVisible(false);
+        root.getChildren().add(board);
         board.getChildren().add(aim);
         aim.setVisible(false);
         buildISOMap(gc, board);
@@ -150,7 +162,7 @@ public class ISODraugth extends Application {
         //  gc.setStroke(Color.AQUAMARINE);
         // gc.strokeRect(0, 0, 300, 250);  
         // gc.strokeRect(100, 100, 100, 100);
-        root.getChildren().add(board);
+      //  root.getChildren().add(board);
        // scoreA.setScaleX(0.3);
        // scoreA.setScaleY(0.3);
        // scoreA.setLayoutX(0);
@@ -189,11 +201,11 @@ public class ISODraugth extends Application {
         //primaryStage.setHeight(root.getBoundsInParent().getWidth());
         System.out.println("--Bound-"+root.getBoundsInParent().getWidth()+","+root.getBoundsInParent().getWidth());
         //scene = new Scene(pan, pan.getBoundsInParent().getWidth(), pan.getBoundsInParent().getHeight(), Color.AQUAMARINE);
-        scene = new Scene(root, Color.AQUAMARINE);
+        scene = new Scene(root, Color.BLACK);
         //primaryStage.set
         primaryStage.setScene(scene);
             
-         primaryStage.setMaximized(false);
+         primaryStage.setMaximized(true);
         primaryStage.setResizable(false);
         primaryStage.show();
 
@@ -209,7 +221,7 @@ public class ISODraugth extends Application {
 
 
     void buildISOMap(GraphicsContext gc, Group board) {
-        ISOCoverter conv = new ISOCoverter();
+
         
 
         for (int y = 0; y < MAP_WIDTH; y++) {
@@ -217,11 +229,11 @@ public class ISODraugth extends Application {
             for (int x = 0; x < MAP_HIGHT; x++) {
 
                 double vx = (ISOCoverter.SQ_WD * x), vy = (ISOCoverter.SQ_HG * y);
-                double convX = conv.covertPlaneXToScreenISOX(vx, vy);
-                double convY = conv.convertPlaneYToScreenISOY(vx, vy);
+                double convX = ISOCoverter.covertPlaneXToScreenISOX(vx, vy);
+                double convY = ISOCoverter.convertPlaneYToScreenISOY(vx, vy);
 
-                double convXC = conv.covertPlaneXToScreenISOX(vx + ISOCoverter.SQ_WD / 2, vy + ISOCoverter.SQ_HG / 2);
-                double convYC = conv.convertPlaneYToScreenISOY(vx + ISOCoverter.SQ_WD / 2, vy + ISOCoverter.SQ_HG / 2);
+                double convXC = ISOCoverter.covertPlaneXToScreenISOX(vx + ISOCoverter.SQ_WD / 2, vy + ISOCoverter.SQ_HG / 2);
+                double convYC = ISOCoverter.convertPlaneYToScreenISOY(vx + ISOCoverter.SQ_WD / 2, vy + ISOCoverter.SQ_HG / 2);
 
                 double x1 = convX + center.getX();
                 double y1 = convY + center.getY();
@@ -259,8 +271,8 @@ public class ISODraugth extends Application {
            //  gc.drawImage(new Image("anim.png"), 50, 150);
 
         }
-
-
+        
+        score=new Score(gc, free.ISO_W, free.ISO_H);
     }
 
     public void trainAnim() {

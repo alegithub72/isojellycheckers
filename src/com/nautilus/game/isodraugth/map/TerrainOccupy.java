@@ -15,7 +15,7 @@ public class TerrainOccupy extends Terrain{
     
 
     public TerrainOccupy(){
-    img=new Image("occupycasella.png");
+    super("occupycasella.png");
     ISO_W=img.getWidth();
     ISO_H=107;
     ISO_SUB_H=img.getHeight()-ISO_H;

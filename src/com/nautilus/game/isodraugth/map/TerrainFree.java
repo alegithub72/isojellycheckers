@@ -14,10 +14,9 @@ import javafx.scene.image.Image;
 public class TerrainFree extends Terrain {
     
     public TerrainFree(){
-    img=new Image("freecasella.png");
-    ISO_W=img.getWidth();
-    ISO_H=107;
-    ISO_SUB_H=img.getHeight()-ISO_H;
+    super("freecasella.png");
+    ISO_H_UP=107;
+    ISO_SUB_H=img.getHeight()-ISO_H_UP;
     offsx = 107;
     offsy = 50;
     
