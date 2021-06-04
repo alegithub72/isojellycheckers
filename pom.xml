@@ -20,6 +20,12 @@
 			<!--systemPath>${project.basedir}/lib/CheckersEngine.jar</systemPath-->
 		</dependency>	
 		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>		
+		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-base</artifactId>
 			<version>17-ea+11</version>
@@ -74,7 +80,7 @@
 		<testOutputDirectory>target/test-classes</testOutputDirectory>
 		<sourceDirectory>src</sourceDirectory>
 		<scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
-		<testSourceDirectory>src/test/java</testSourceDirectory>
+		<testSourceDirectory>test</testSourceDirectory>
 		<resources>
 			<resource>
 				<directory>src/resources</directory>
@@ -82,7 +88,7 @@
 		</resources>
 		<testResources>
 			<testResource>
-				<directory>src/test/resources</directory>
+				<directory>test/resources</directory>
 			</testResource>
 		</testResources>
 	</build>
