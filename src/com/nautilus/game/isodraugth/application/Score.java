@@ -39,9 +39,9 @@ public class Score {
         gc.setFill(Color.GREENYELLOW);
 
         gc.fillText("UKF:"+score, xA, yA);
-        Image image2 = new Image("point_text.png",100,100,true,false);
+        //Image image2 = new Image("ukf_text.png",100,100,true,false);
         
-        gc.drawImage(image2, xA, yA);
+        //gc.drawImage(image2, xA, yA);
         double convXB=ISOCoverter.covertPlaneXToScreenISOX((ISOCoverter.SQ_WD*8),(ISOCoverter.SQ_HG*2));
         double convYB=ISOCoverter.convertPlaneYToScreenISOY((ISOCoverter.SQ_WD*8),(ISOCoverter.SQ_HG*2));
          xB = convXB + center.getX()-(ISO_W/2);
