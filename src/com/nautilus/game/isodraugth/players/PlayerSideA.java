@@ -97,7 +97,6 @@ public class PlayerSideA extends HumanPlayer{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-	@Override
 	protected void possibleFilottoMove(Move m, String c) {
 		 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 		

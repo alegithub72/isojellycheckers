@@ -19,7 +19,8 @@ mvn install:install-file -Dfile=./lib/checkersengine-1.0.jar -DgroupId=checkerse
 
 mvn javafx:run
 
+
 ```
 
 
-![screenshot4](https://user-images.githubusercontent.com/26597373/120817503-111c7580-c552-11eb-8c13-77db49ea5240.PNG)
+![screenshot4](./screenshot/screenshot1.png "board game")
